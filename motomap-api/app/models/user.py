@@ -1,7 +1,7 @@
 import enum
 import uuid
 
-from sqlalchemy import Boolean, Enum, String
+from sqlalchemy import Boolean, Enum, String, Text
 from sqlalchemy.dialects.postgresql import UUID
 from sqlalchemy.orm import Mapped, mapped_column
 
@@ -27,3 +27,4 @@ class User(Base, TimestampMixin, SoftDeleteMixin):
         Enum(UserRole), nullable=False, default=UserRole.RIDER
     )
     is_active: Mapped[bool] = mapped_column(Boolean, nullable=False, default=True)
+    password_hash: Mapped[str | None] = mapped_column(Text, nullable=True)
