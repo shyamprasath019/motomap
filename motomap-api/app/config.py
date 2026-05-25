@@ -13,5 +13,15 @@ class Settings(BaseSettings):
     jwt_algorithm: str = "HS256"
     jwt_expire_minutes: int = 1440  # 24 hours
 
+    # Anthropic — AI diagnosis (claude-sonnet-4-6 vision)
+    anthropic_api_key: str = ""
+
+    # Cloudflare R2 — part + guide photo storage (S3-compatible)
+    r2_account_id: str = ""
+    r2_access_key_id: str = ""
+    r2_secret_access_key: str = ""
+    r2_bucket_name: str = "motomap"
+    r2_public_url: str = ""  # e.g. https://pub-<hash>.r2.dev
+
 
 settings = Settings()

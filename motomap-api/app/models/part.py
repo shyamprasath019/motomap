@@ -1,6 +1,7 @@
 import enum
 import uuid
 
+from pgvector.sqlalchemy import Vector
 from sqlalchemy import Boolean, Enum, ForeignKey, Integer, String, Text
 from sqlalchemy.dialects.postgresql import JSONB, UUID
 from sqlalchemy.orm import Mapped, mapped_column
@@ -33,6 +34,7 @@ class Part(Base, TimestampMixin, SoftDeleteMixin):
     metadata_: Mapped[dict | None] = mapped_column("metadata", JSONB, nullable=True)
     # NEVER set True without Expert Reviewer sign-off (see CLAUDE.md safety rules)
     is_risk_approved: Mapped[bool] = mapped_column(Boolean, nullable=False, default=False)
+    embedding: Mapped[list[float] | None] = mapped_column(Vector(384), nullable=True)
 
 
 class PartConnection(Base, TimestampMixin):

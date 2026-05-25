@@ -1,0 +1,26 @@
+{
+  "autoMemoryEnabled": true,
+  "hooks": {
+    "PostToolUse": [
+      {
+        "matcher": "Write|Edit",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash .claude/hooks/check-safety.sh"
+          }
+        ]
+      }
+    ],
+    "SubagentStop": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "echo '[Motomap] Agent session complete. Run motomap-reviewer to verify before next session.'"
+          }
+        ]
+      }
+    ]
+  }
+}
