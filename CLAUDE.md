@@ -112,8 +112,8 @@ Import this file at the top of every subagent: `@CLAUDE.md`
 Phase 1 — MVP (Weeks 1–12)
 Target bikes: Bajaj Pulsar 150, TVS Apache RTR 160 4V, Royal Enfield Classic 350
 
-**Session 1 status**: [ ] Schema + FastAPI scaffold
-**Session 2 status**: [ ] AI diagnosis service  
-**Session 3 status**: [ ] Seed data (3 bikes)
+**Session 1 status**: [x] Schema + FastAPI scaffold
+**Session 2 status**: [x] AI diagnosis service  
+**Session 3 status**: [x] Seed data (3 bikes) — 84 parts, 101 connections, 3 guides, 30 steps seeded 2026-05-25
 **Session 4 status**: [ ] Contributor portal
 **Session 5 status**: [ ] React Native app shell

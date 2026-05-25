@@ -1,6 +1,6 @@
 """Phase 1 bike definitions — Bajaj Pulsar 150, TVS Apache RTR 160 4V, Royal Enfield Classic 350."""
 
-from seeds.types import BikeDef
+from seeds.seed_types import BikeDef
 
 BIKES: list[BikeDef] = [
     BikeDef(
