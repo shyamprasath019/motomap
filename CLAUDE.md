@@ -117,7 +117,7 @@ Target bikes: Bajaj Pulsar 150, TVS Apache RTR 160 4V, Royal Enfield Classic 350
 **Session 3 status**: [x] AI diagnosis service — Claude Sonnet 4.6 vision, pgvector embeddings, R2 storage
 **Session 4 status**: [x] Seed data — 84 parts, 101 connections, 3 oil-change guides seeded 2026-05-25
 **Session 5 status**: [x] Contributor portal — Next.js 14, 8 routes, Clerk auth, build clean
-**Session 6 status**: [ ] Rider app shell (React Native / Expo)
+**Session 6 status**: [x] Rider app shell — 3-tab Expo app, real API data, risk badges, offline cache. Gaps: anatomy map is a list (not visual diagram), Diagnose auth gate before camera, no error retry states.
 
 ## Known Issues — Fix Before Production
 

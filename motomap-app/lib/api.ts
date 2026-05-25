@@ -10,8 +10,7 @@ import type {
   TokenResponse,
 } from '../types';
 
-// 10.0.2.2 = host machine from Android emulator
-const BASE_URL = 'http://10.0.2.2:8000/api/v1';
+const BASE_URL = process.env.EXPO_PUBLIC_API_URL ?? 'http://192.168.0.2:8000/api/v1';
 
 export const apiClient = axios.create({
   baseURL: BASE_URL,
