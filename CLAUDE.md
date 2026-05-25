@@ -112,8 +112,13 @@ Import this file at the top of every subagent: `@CLAUDE.md`
 Phase 1 — MVP (Weeks 1–12)
 Target bikes: Bajaj Pulsar 150, TVS Apache RTR 160 4V, Royal Enfield Classic 350
 
-**Session 1 status**: [x] Schema + FastAPI scaffold
-**Session 2 status**: [x] AI diagnosis service  
-**Session 3 status**: [x] Seed data (3 bikes) — 84 parts, 101 connections, 3 guides, 30 steps seeded 2026-05-25
-**Session 4 status**: [ ] Contributor portal
-**Session 5 status**: [ ] React Native app shell
+**Session 1 status**: [x] Schema + FastAPI scaffold — 8 tables, alembic migration, /health
+**Session 2 status**: [x] Core API routes + JWT auth — all CRUD routes, RBAC, bcrypt==4.3.0 (passlib dropped)
+**Session 3 status**: [x] AI diagnosis service — Claude Sonnet 4.6 vision, pgvector embeddings, R2 storage
+**Session 4 status**: [x] Seed data — 84 parts, 101 connections, 3 oil-change guides seeded 2026-05-25
+**Session 5 status**: [x] Contributor portal — Next.js 14, 8 routes, Clerk auth, build clean
+**Session 6 status**: [ ] Rider app shell (React Native / Expo)
+
+## Known Issues — Fix Before Production
+
+1. **Clerk→backend JWT bridge (SECURITY):** `motomap-contributor` uses Clerk userId as password to mint backend JWTs — this is a dev shortcut, userId is not a secret. Fix in Session 7/8: use `@clerk/backend` + `verifyToken` to verify Clerk session tokens server-side instead of the password bridge. Do NOT ship to prod with current auth flow.
