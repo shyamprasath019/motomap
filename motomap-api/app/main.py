@@ -1,4 +1,8 @@
+from contextlib import asynccontextmanager
+from typing import AsyncGenerator
+
 from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
 
 from app.config import settings
 from app.routes.bikes import router as bikes_router
@@ -9,10 +13,28 @@ from app.routes.health import router as health_router
 from app.routes.parts import router as parts_router
 from app.routes.users import router as users_router
 
+
+@asynccontextmanager
+async def lifespan(_app: FastAPI) -> AsyncGenerator[None, None]:
+    assert settings.jwt_secret != "changeme-dev-secret-32-chars-min!!", (
+        "JWT_SECRET must be overridden in .env before running"
+    )
+    yield
+
+
 app = FastAPI(
     title="Motomap API",
     version="1.0.0",
     description="India's first interactive motorcycle knowledge and diagnostic platform.",
+    lifespan=lifespan,
+)
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=settings.cors_origins,
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
 )
 
 app.include_router(health_router)

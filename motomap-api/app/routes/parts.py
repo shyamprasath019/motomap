@@ -39,15 +39,27 @@ async def get_connections(part_id: uuid.UUID, db: AsyncSession = Depends(get_db)
         )
     ).scalars().all()
 
-    result = []
-    for conn in connections:
-        other_id = conn.to_part_id if conn.from_part_id == part_id else conn.from_part_id
-        other = (
+    id_to_conn: dict[uuid.UUID, object] = {
+        (conn.to_part_id if conn.from_part_id == part_id else conn.from_part_id): conn
+        for conn in connections
+    }
+
+    parts_map: dict[uuid.UUID, Part] = {}
+    if id_to_conn:
+        other_parts = (
             await db.execute(
-                select(Part).where(Part.id == other_id, Part.deleted_at.is_(None))
+                select(Part).where(
+                    Part.id.in_(id_to_conn.keys()),
+                    Part.deleted_at.is_(None),
+                )
             )
-        ).scalar_one_or_none()
+        ).scalars().all()
+        parts_map = {p.id: p for p in other_parts}
+
+    result = []
+    for other_id, conn in id_to_conn.items():
         entry = PartConnectionOut.model_validate(conn)
+        other = parts_map.get(other_id)
         entry.connected_part = PartOut.model_validate(other) if other else None
         result.append(entry.model_dump())
 

@@ -1,3 +1,4 @@
+from pydantic import Field
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
 
@@ -9,9 +10,10 @@ class Settings(BaseSettings):
     redis_url: str = "redis://localhost:6379"
     environment: str = "development"
     api_v1_prefix: str = "/api/v1"
-    jwt_secret: str = "changeme-dev-secret-32-chars-min!!"
+    jwt_secret: str = Field("changeme-dev-secret-32-chars-min!!", min_length=32)
     jwt_algorithm: str = "HS256"
     jwt_expire_minutes: int = 1440  # 24 hours
+    cors_origins: list[str] = ["http://localhost:3000"]
 
     # Anthropic — AI diagnosis (claude-sonnet-4-6 vision)
     anthropic_api_key: str = ""

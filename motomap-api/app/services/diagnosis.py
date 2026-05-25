@@ -145,6 +145,10 @@ async def diagnose(
             "Consult a mechanic for a proper inspection before riding."
         )
 
+    # SAFETY: any STOP part overrides AI's safe_to_ride=True
+    if any(p.severity == "STOP" for p in diagnosed):
+        safe_to_ride = False
+
     # Always emit mechanic_prompt when any STOP part detected (CLAUDE.md safety rule)
     mechanic_prompt = None
     if any(p.severity == "STOP" for p in diagnosed):
